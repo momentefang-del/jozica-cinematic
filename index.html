@@ -32,13 +32,21 @@
 .ambient-particles{pointer-events:none!important;z-index:3!important;opacity:.86!important}
 .scene>.inner{z-index:4!important}
 @media(max-width:430px){#s1 #jubilee50{pointer-events:none!important;width:96vw!important}.ambient-particles{opacity:.9!important}}
+
+/* V7: guaranteed visible 50 and settled portrait */
+#s1 .jubilee-stack{position:relative!important;display:flex!important;flex-direction:column!important;align-items:center!important}
+#s1 .fifty-fallback{position:relative;z-index:1;margin:0 auto -210px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(9rem,34vw,15rem);font-weight:900;line-height:.82;letter-spacing:-.12em;padding-right:.12em;color:rgba(225,248,255,.2);text-shadow:0 0 12px rgba(255,255,255,.55),0 0 32px rgba(100,210,255,.42)}
+#s1 #jubilee50{position:relative!important;z-index:2!important;display:block!important;height:230px!important;margin:0 auto -12px!important}
+#s1 .portrait-shell{position:relative!important;z-index:3!important;margin:0 auto!important}
+#s1 #portrait{display:block!important}
+@media(max-width:430px){#s1 .fifty-fallback{font-size:clamp(8.5rem,40vw,12rem);margin-bottom:-205px}#s1 #jubilee50{height:220px!important}}
 </style></head>
 <body><!-- PREMIUM V2: Partikel aus echten Porträtpunkten zur 5 und 0; FINAL: IMG_5735 permanent recognizable portrait + exact outline/marker extracted from IMG_0082 -->
 <div class="stage"><div class="orb a"></div><div class="orb b"></div><div class="stars"></div></div>
 <div class="dots" id="dots" aria-label="Szenenfortschritt"></div>
 <div class="lang"><button id="de" class="active">DE</button><button id="sl">SL</button></div>
 <main id="flow">
-<section class="scene active" id="s1"><div class="inner"><div class="jubilee-stack"><canvas id="jubilee50" width="760" height="230" aria-hidden="true"></canvas><div class="portrait-shell"><div class="portrait-glow"></div><img class="portrait-reference" id="portraitReference" alt="" aria-hidden="true"><canvas id="portrait" width="420" height="420" aria-label="Animiertes Lichtpunktporträt"></canvas></div></div><div class="hero-copy"><p class="ey" data-de="Eine Einladung für dich" data-sl="Vabilo zate">Eine Einladung für dich</p><h1 class="title" data-de="JOZICA&lt;br&gt;BIRTHDAY" data-sl="JOZICA&lt;br&gt;BIRTHDAY">JOZICA<br>BIRTHDAY</h1></div></div></section>
+<section class="scene active" id="s1"><div class="inner"><div class="jubilee-stack"><div class="fifty-fallback" aria-hidden="true">50</div><canvas id="jubilee50" width="760" height="230" aria-hidden="true"></canvas><div class="portrait-shell"><div class="portrait-glow"></div><img class="portrait-reference" id="portraitReference" alt="" aria-hidden="true"><canvas id="portrait" width="420" height="420" aria-label="Animiertes Lichtpunktporträt"></canvas></div></div><div class="hero-copy"><p class="ey" data-de="Eine Einladung für dich" data-sl="Vabilo zate">Eine Einladung für dich</p><h1 class="title" data-de="JOZICA&lt;br&gt;BIRTHDAY" data-sl="JOZICA&lt;br&gt;BIRTHDAY">JOZICA<br>BIRTHDAY</h1></div></div></section>
 <section class="scene" id="s2"><div class="inner"><p class="ey">Save the date</p><h2 class="head">09. JANUAR<br>2027</h2><p class="lead" data-de="Beginn um 17:00 Uhr in Odranci, Slowenien." data-sl="Začetek ob 17:00 v Odrancih, Slovenija.">Beginn um 17:00 Uhr in Odranci, Slowenien.</p></div></section>
 <section class="scene" id="s3"><div class="inner"><p class="ey" data-de="Der Countdown läuft" data-sl="Odštevanje se je začelo">Der Countdown läuft</p><div class="glass"><div class="days" id="days">000</div><div class="label" data-de="Tage bis zur Feier" data-sl="Dni do praznovanja">Tage bis zur Feier</div><div class="mini"><div><strong id="hours">00</strong><span data-de="Std" data-sl="Ur">Std</span></div><div><strong id="minutes">00</strong><span data-de="Min" data-sl="Min">Min</span></div><div><strong id="seconds">00</strong><span data-de="Sek" data-sl="Sek">Sek</span></div></div></div></div></section>
 <section class="scene warm" id="s4"><div class="inner"><p class="ey" data-de="Die Einladung" data-sl="Vabilo">Die Einladung</p><h2 class="head" data-de="Lasst uns gemeinsam feiern" data-sl="Praznujmo skupaj">Lasst uns gemeinsam feiern</h2><p class="lead" data-de="Ich freue mich sehr, mit meiner Familie und meinen Freunden meinen besonderen Tag zu feiern. Gemeinsam möchten wir schöne Momente erleben, lachen und diesen Tag unvergesslich machen." data-sl="Zelo se veselim, da bom svoj poseben dan praznovala z družino in prijatelji. Skupaj želimo doživeti lepe trenutke, se smejati in ta dan narediti nepozaben.">Ich freue mich sehr, mit meiner Familie und meinen Freunden meinen besonderen Tag zu feiern. Gemeinsam möchten wir schöne Momente erleben, lachen und diesen Tag unvergesslich machen.</p><p class="lead celebration-note" data-de="Freut euch auf einen genussvollen Abend mit kulinarischen Köstlichkeiten und stimmungsvoller Livemusik." data-sl="Veselite se prijetnega večera z kulinaričnimi dobrotami in živahno glasbo v živo.">Freut euch auf einen genussvollen Abend mit kulinarischen Köstlichkeiten und stimmungsvoller Livemusik.</p><a class="music-sample" href="https://youtu.be/xv5YfOlZOhA?is=UOL09WBBVhF8DXgA" target="_blank" rel="noopener noreferrer" data-de="♫ Hörprobe der Livemusik" data-sl="♫ Poslušaj vzorec glasbe v živo">♫ Hörprobe der Livemusik</a></div></section>
@@ -61,7 +69,8 @@ function tick(){const d=Math.max(0,target-Date.now());ui.days.textContent=String
 function lang(l,e){e&&e.stopPropagation();document.querySelectorAll('[data-'+l+']').forEach(x=>x.innerHTML=x.dataset[l]);ui.de.classList.toggle('active',l==='de');ui.sl.classList.toggle('active',l==='sl');document.documentElement.lang=l}ui.de.onclick=e=>lang('de',e);ui.sl.onclick=e=>lang('sl',e);
 const canvas=q('portrait'),ctx=canvas.getContext('2d'),img=new Image(),portraitReference=q('portraitReference'),jubilee=q('jubilee50'),jctx=jubilee.getContext('2d');document.documentElement.style.setProperty('--portrait-fallback',`url(${PHOTO})`);let particles=[],animId=0,startTime=0;img.src=PHOTO;portraitReference.src=PHOTO;
 function buildParticles(){const off=document.createElement('canvas'),o=off.getContext('2d',{willReadFrequently:true});off.width=210;off.height=210;const r=Math.min(off.width/img.width,off.height/img.height),w=img.width*r,h=img.height*r,x=(off.width-w)/2,y=(off.height-h)/2;o.drawImage(img,x,y,w,h);const data=o.getImageData(0,0,off.width,off.height).data;particles=[];for(let py=1;py<off.height;py+=3){for(let px=1;px<off.width;px+=3){const k=(py*off.width+px)*4,rr=data[k],gg=data[k+1],bb=data[k+2],lum=(rr*.299+gg*.587+bb*.114);if(lum>12){const tx=px*2,ty=py*2,edge=Math.abs(lum-((data[Math.max(0,k-12)]||0)+(data[Math.min(data.length-4,k+12)]||0))/2);let c='#f7fbff';if(lum<65)c='#64d2ff';else if(lum<135)c=Math.random()>.7?'#ffd86b':'#bfefff';particles.push({tx,ty,x:210+(Math.random()-.5)*520,y:210+(Math.random()-.5)*520,s:.75+Math.random()*1.45+(edge>35?.45:0),c,phase:Math.random()*6.28,lum})}}}}
-function animatePortrait(t){const elapsed=t-startTime,gather=Math.min(elapsed/3300,1);ctx.clearRect(0,0,420,420);ctx.globalCompositeOperation='lighter';for(const pt of particles){const e=1-Math.pow(1-gather,3),x=pt.x+(pt.tx-pt.x)*e,y=pt.y+(pt.ty-pt.y)*e,blink=.78+.22*Math.sin(t*.0045+pt.phase),weight=.58+Math.min(pt.lum,220)/360,gray=Math.max(118,Math.min(242,pt.lum+30)),cool=Math.min(250,gray+9),warm=pt.hue>.86&&pt.lum>145,col=warm?'rgb(218,196,118)':`rgb(${gray},${cool},${Math.min(255,cool+8)})`;ctx.globalAlpha=Math.min(1,gather*2.1)*blink*weight;ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=gather>.75?3.5:1;ctx.beginPath();ctx.arc(x,y,pt.s+(gather*.34),0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;ctx.globalAlpha=1;animId=requestAnimationFrame(animatePortrait)}
+function drawSettledPortrait(){ctx.clearRect(0,0,420,420);ctx.globalCompositeOperation='lighter';for(const pt of particles){const gray=Math.max(118,Math.min(242,pt.lum+30)),cool=Math.min(250,gray+9),warm=pt.hue>.86&&pt.lum>145,col=warm?'rgb(218,196,118)':`rgb(${gray},${cool},${Math.min(255,cool+8)})`;ctx.globalAlpha=.62+Math.min(pt.lum,220)/580;ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=2.4;ctx.beginPath();ctx.arc(pt.tx,pt.ty,pt.s+.34,0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;ctx.globalAlpha=1}
+function animatePortrait(t){const elapsed=t-startTime,gather=Math.min(elapsed/3300,1);ctx.clearRect(0,0,420,420);ctx.globalCompositeOperation='lighter';for(const pt of particles){const e=1-Math.pow(1-gather,3),x=pt.x+(pt.tx-pt.x)*e,y=pt.y+(pt.ty-pt.y)*e,gray=Math.max(118,Math.min(242,pt.lum+30)),cool=Math.min(250,gray+9),warm=pt.hue>.86&&pt.lum>145,col=warm?'rgb(218,196,118)':`rgb(${gray},${cool},${Math.min(255,cool+8)})`;ctx.globalAlpha=Math.min(1,gather*2.1)*(.62+Math.min(pt.lum,220)/580);ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=gather>.75?2.4:1;ctx.beginPath();ctx.arc(x,y,pt.s+(gather*.34),0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;ctx.globalAlpha=1;if(gather<1){animId=requestAnimationFrame(animatePortrait)}else{drawSettledPortrait()}}
 function buildNumberTargets(){const tmp=document.createElement('canvas'),tc=tmp.getContext('2d',{willReadFrequently:true});tmp.width=760;tmp.height=230;tc.clearRect(0,0,760,230);tc.textAlign='center';tc.textBaseline='middle';tc.font='900 238px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif';tc.fillStyle='#fff';tc.fillText('5',282,128);tc.fillText('0',478,128);const data=tc.getImageData(0,0,760,230).data;numberParticles=[];for(let y=10;y<220;y+=6){for(let x=8;x<752;x+=6){if(data[(y*760+x)*4+3]>80){const side=x<380?-1:1;numberParticles.push({tx:x,ty:y,x:380+side*(18+Math.random()*95),y:112+(Math.random()-.5)*120,s:.95+Math.random()*1.8,phase:Math.random()*6.28,hue:Math.random()})}}}}
 function animateNumbers(t){
   const elapsed=t-numberStart;
@@ -94,7 +103,7 @@ function animateNumbers(t){
   // Partikel stammen sichtbar aus echten hellen Punkten des Porträts
   if(spark && particles.length){
     const flowTime=t*.00014;
-    for(let i=0;i<58;i++){
+    for(let i=0;i<22;i++){
       const source=particles[(i*137)%particles.length];
       const side=i%2===0?-1:1;
       const cycle=(flowTime+i*.061)%1;
@@ -104,9 +113,9 @@ function animateNumbers(t){
 
       // Porträt-Canvas liegt mittig in der 760x360-Komposition
       const fromX=380+(source.tx-210)*.38;
-      const fromY=225+source.ty*.12;
+      const fromY=218+source.ty*.10;
       const toX=side<0?300:460;
-      const toY=120+Math.sin(i*.91)*72;
+      const toY=108+Math.sin(i*.91)*62;
       const x=fromX+(toX-fromX)*ease;
       const y=fromY+(toY-fromY)*ease-Math.sin(progress*Math.PI)*(18+(i%5)*4);
       const pulse=.55+.45*Math.sin(t*.012+i*2.1);
