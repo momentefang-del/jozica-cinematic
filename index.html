@@ -40,6 +40,14 @@
 #s1 .portrait-shell{position:relative!important;z-index:3!important;margin:0 auto!important}
 #s1 #portrait{display:block!important}
 @media(max-width:430px){#s1 .fifty-fallback{font-size:clamp(8.5rem,40vw,12rem);margin-bottom:-205px}#s1 #jubilee50{height:220px!important}}
+
+/* V8: sharp final portrait and diamond 50 */
+#s1 .portrait-reference{display:block!important;opacity:0!important;filter:grayscale(1) contrast(1.18) brightness(.9)!important;mix-blend-mode:screen!important;transform:scale(.985)}
+#s1.portrait-settled .portrait-reference{opacity:.62!important;transition:opacity 1.35s ease,filter 1.35s ease;filter:grayscale(1) contrast(1.25) brightness(1.02)!important}
+#s1.portrait-settled #portrait{opacity:.64;transition:opacity 1.35s ease}
+#s1 .fifty-fallback{color:rgba(214,245,255,.12)!important;text-shadow:0 0 10px rgba(255,255,255,.45),0 0 28px rgba(100,210,255,.35)!important}
+#s1.fifty-ready .fifty-fallback{animation:diamondFifty 2.35s ease-in-out infinite}
+@keyframes diamondFifty{0%,100%{color:rgba(220,248,255,.28);text-shadow:0 0 8px #fff,0 0 22px rgba(100,210,255,.62),0 0 42px rgba(191,90,242,.28)}45%{color:rgba(255,255,255,.66);text-shadow:0 0 13px #fff,0 0 34px rgba(100,210,255,.95),0 0 64px rgba(191,90,242,.48)}50%{color:rgba(255,248,205,.78);text-shadow:0 0 18px #fff,0 0 46px rgba(255,216,107,.9),0 0 84px rgba(100,210,255,.66)}55%{color:rgba(255,255,255,.62);text-shadow:0 0 12px #fff,0 0 30px rgba(100,210,255,.9),0 0 58px rgba(191,90,242,.42)}}
 </style></head>
 <body><!-- PREMIUM V2: Partikel aus echten Porträtpunkten zur 5 und 0; FINAL: IMG_5735 permanent recognizable portrait + exact outline/marker extracted from IMG_0082 -->
 <div class="stage"><div class="orb a"></div><div class="orb b"></div><div class="stars"></div></div>
@@ -69,13 +77,13 @@ function tick(){const d=Math.max(0,target-Date.now());ui.days.textContent=String
 function lang(l,e){e&&e.stopPropagation();document.querySelectorAll('[data-'+l+']').forEach(x=>x.innerHTML=x.dataset[l]);ui.de.classList.toggle('active',l==='de');ui.sl.classList.toggle('active',l==='sl');document.documentElement.lang=l}ui.de.onclick=e=>lang('de',e);ui.sl.onclick=e=>lang('sl',e);
 const canvas=q('portrait'),ctx=canvas.getContext('2d'),img=new Image(),portraitReference=q('portraitReference'),jubilee=q('jubilee50'),jctx=jubilee.getContext('2d');document.documentElement.style.setProperty('--portrait-fallback',`url(${PHOTO})`);let particles=[],animId=0,startTime=0;img.src=PHOTO;portraitReference.src=PHOTO;
 function buildParticles(){const off=document.createElement('canvas'),o=off.getContext('2d',{willReadFrequently:true});off.width=210;off.height=210;const r=Math.min(off.width/img.width,off.height/img.height),w=img.width*r,h=img.height*r,x=(off.width-w)/2,y=(off.height-h)/2;o.drawImage(img,x,y,w,h);const data=o.getImageData(0,0,off.width,off.height).data;particles=[];for(let py=1;py<off.height;py+=3){for(let px=1;px<off.width;px+=3){const k=(py*off.width+px)*4,rr=data[k],gg=data[k+1],bb=data[k+2],lum=(rr*.299+gg*.587+bb*.114);if(lum>12){const tx=px*2,ty=py*2,edge=Math.abs(lum-((data[Math.max(0,k-12)]||0)+(data[Math.min(data.length-4,k+12)]||0))/2);let c='#f7fbff';if(lum<65)c='#64d2ff';else if(lum<135)c=Math.random()>.7?'#ffd86b':'#bfefff';particles.push({tx,ty,x:210+(Math.random()-.5)*520,y:210+(Math.random()-.5)*520,s:.75+Math.random()*1.45+(edge>35?.45:0),c,phase:Math.random()*6.28,lum})}}}}
-function drawSettledPortrait(){ctx.clearRect(0,0,420,420);ctx.globalCompositeOperation='lighter';for(const pt of particles){const gray=Math.max(118,Math.min(242,pt.lum+30)),cool=Math.min(250,gray+9),warm=pt.hue>.86&&pt.lum>145,col=warm?'rgb(218,196,118)':`rgb(${gray},${cool},${Math.min(255,cool+8)})`;ctx.globalAlpha=.62+Math.min(pt.lum,220)/580;ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=2.4;ctx.beginPath();ctx.arc(pt.tx,pt.ty,pt.s+.34,0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;ctx.globalAlpha=1}
-function animatePortrait(t){const elapsed=t-startTime,gather=Math.min(elapsed/3300,1);ctx.clearRect(0,0,420,420);ctx.globalCompositeOperation='lighter';for(const pt of particles){const e=1-Math.pow(1-gather,3),x=pt.x+(pt.tx-pt.x)*e,y=pt.y+(pt.ty-pt.y)*e,gray=Math.max(118,Math.min(242,pt.lum+30)),cool=Math.min(250,gray+9),warm=pt.hue>.86&&pt.lum>145,col=warm?'rgb(218,196,118)':`rgb(${gray},${cool},${Math.min(255,cool+8)})`;ctx.globalAlpha=Math.min(1,gather*2.1)*(.62+Math.min(pt.lum,220)/580);ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=gather>.75?2.4:1;ctx.beginPath();ctx.arc(x,y,pt.s+(gather*.34),0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;ctx.globalAlpha=1;if(gather<1){animId=requestAnimationFrame(animatePortrait)}else{drawSettledPortrait()}}
-function buildNumberTargets(){const tmp=document.createElement('canvas'),tc=tmp.getContext('2d',{willReadFrequently:true});tmp.width=760;tmp.height=230;tc.clearRect(0,0,760,230);tc.textAlign='center';tc.textBaseline='middle';tc.font='900 238px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif';tc.fillStyle='#fff';tc.fillText('5',282,128);tc.fillText('0',478,128);const data=tc.getImageData(0,0,760,230).data;numberParticles=[];for(let y=10;y<220;y+=6){for(let x=8;x<752;x+=6){if(data[(y*760+x)*4+3]>80){const side=x<380?-1:1;numberParticles.push({tx:x,ty:y,x:380+side*(18+Math.random()*95),y:112+(Math.random()-.5)*120,s:.95+Math.random()*1.8,phase:Math.random()*6.28,hue:Math.random()})}}}}
+function drawSettledPortrait(){ctx.clearRect(0,0,420,420);ctx.globalCompositeOperation='lighter';for(const pt of particles){const gray=Math.max(105,Math.min(238,pt.lum+24)),cool=Math.min(247,gray+8),warm=pt.hue>.89&&pt.lum>160,col=warm?'rgb(205,188,122)':`rgb(${gray},${cool},${Math.min(255,cool+7)})`;ctx.globalAlpha=.38+Math.min(pt.lum,220)/720;ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=1.35;ctx.beginPath();ctx.arc(pt.tx,pt.ty,Math.max(.72,pt.s*.82),0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;ctx.globalAlpha=1;q('s1').classList.add('portrait-settled');setTimeout(()=>q('s1').classList.add('fifty-ready'),520)}
+function animatePortrait(t){const elapsed=t-startTime,gather=Math.min(elapsed/3600,1);ctx.clearRect(0,0,420,420);ctx.globalCompositeOperation='lighter';for(const pt of particles){const e=1-Math.pow(1-gather,3),x=pt.x+(pt.tx-pt.x)*e,y=pt.y+(pt.ty-pt.y)*e,gray=Math.max(105,Math.min(238,pt.lum+24)),cool=Math.min(247,gray+8),warm=pt.hue>.89&&pt.lum>160,col=warm?'rgb(205,188,122)':`rgb(${gray},${cool},${Math.min(255,cool+7)})`;ctx.globalAlpha=Math.min(1,gather*2)*(.42+Math.min(pt.lum,220)/650);ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=gather>.78?1.8:1;ctx.beginPath();ctx.arc(x,y,Math.max(.74,pt.s*.86),0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;ctx.globalAlpha=1;if(gather<1){animId=requestAnimationFrame(animatePortrait)}else{drawSettledPortrait()}}
+function buildNumberTargets(){const tmp=document.createElement('canvas'),tc=tmp.getContext('2d',{willReadFrequently:true});tmp.width=760;tmp.height=230;tc.clearRect(0,0,760,230);tc.textAlign='center';tc.textBaseline='middle';tc.font='900 238px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif';tc.fillStyle='#fff';tc.fillText('5',282,128);tc.fillText('0',478,128);const data=tc.getImageData(0,0,760,230).data;numberParticles=[];for(let y=10;y<220;y+=6){for(let x=8;x<752;x+=6){if(data[(y*760+x)*4+3]>80){const side=x<380?-1:1;numberParticles.push({tx:x,ty:y,x:380+(Math.random()-.5)*150,y:215+Math.random()*90,s:.95+Math.random()*1.8,phase:Math.random()*6.28,hue:Math.random()})}}}}
 function animateNumbers(t){
   const elapsed=t-numberStart;
-  const gather=Math.min(elapsed/2300,1);
-  const spark=elapsed>1900;
+  const gather=Math.min(elapsed/3900,1);
+  const spark=elapsed>3300;
   jctx.clearRect(0,0,760,230);
   jctx.globalCompositeOperation='lighter';
 
@@ -101,9 +109,9 @@ function animateNumbers(t){
   }
 
   // Partikel stammen sichtbar aus echten hellen Punkten des Porträts
-  if(spark && particles.length){
+  if(elapsed>3900 && particles.length){
     const flowTime=t*.00014;
-    for(let i=0;i<22;i++){
+    for(let i=0;i<16;i++){
       const source=particles[(i*137)%particles.length];
       const side=i%2===0?-1:1;
       const cycle=(flowTime+i*.061)%1;
@@ -134,6 +142,6 @@ function animateNumbers(t){
   numberAnim=requestAnimationFrame(animateNumbers);
 }
 function restartNumbers(){cancelAnimationFrame(numberAnim);if(!numberParticles.length)buildNumberTargets();numberStart=performance.now();numberAnim=requestAnimationFrame(animateNumbers)}
-function restartPortrait(){cancelAnimationFrame(animId);if(!particles.length)return;startTime=performance.now();animId=requestAnimationFrame(animatePortrait)}img.onload=()=>{buildParticles();restartPortrait();buildNumberTargets();restartNumbers()};update();
+function restartPortrait(){cancelAnimationFrame(animId);q('s1').classList.remove('portrait-settled','fifty-ready');if(!particles.length)return;startTime=performance.now();animId=requestAnimationFrame(animatePortrait)}img.onload=()=>{buildParticles();restartPortrait();buildNumberTargets();restartNumbers()};update();
 })();
 </script></body></html>
